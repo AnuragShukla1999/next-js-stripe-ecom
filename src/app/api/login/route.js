@@ -7,8 +7,8 @@ import { NextResponse } from "next/server";
 
 
 const schema = Joi.object({
-    email: string().email().required(),
-    password: string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().required(),
 });
 
 export const dynamic = "force-dynamic";
@@ -56,7 +56,7 @@ export async function POST(req) {
                 role: checkUser?.role,
             },
 
-            "default_secret_key",
+            "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxMTk2MDQxMCwiaWF0IjoxNzExOTYwNDEwfQ.z38bpuvYoLYCUnofnR7gdXyrjC-IY0aBTm0uugbHKlXjsdNiqp6m93LirAYNb1_4pxt5iqxv6TwITg1hqMv3yg",
             { expiresIn: "1d" }
         );
 

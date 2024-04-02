@@ -1,9 +1,14 @@
 "use client";
 
+import InputComponent from "@/components/FormElements/InputComponent";
+import SelectComponent from "@/components/FormElements/SelectComponent";
+import ComponentLevelLoader from "@/components/Loader/componentlevel";
+import Notification from "@/components/Notification";
+import { GlobalContext } from "@/context";
 import { registerNewUser } from "@/services/register";
 import { registrationFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 
 
@@ -21,6 +26,7 @@ export default function Register() {
 
     const [isRegistered, setIsRegistered] = useState(false);
 
+    const { pageLevelLoader, setPageLevelLoader, isAuthUser } = useContext(GlobalContext)
 
     const router = useRouter();
 
@@ -46,17 +52,13 @@ export default function Register() {
         const data = await registerNewUser(formData);
 
         if (data.success) {
-            toast.success(data.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            });
+            toast.success(data.message);
 
             setIsRegistered(true);
 
             setFormData(initialFormData);
         } else {
-            toast.error(data.message, {
-                position: toast.POSITION.TOP_RIGHT,
-            });
+            toast.error(data.message);
 
             setFormData(initialFormData);
         }
@@ -88,9 +90,10 @@ export default function Register() {
                                 </button>
                             ) : (
                                 <div className="w-full mt-6 mr-0 mb-0 ml-0 relative space-y-8">
-                                    {registrationFormControls.map((controlItem) =>
+                                    {registrationFormControls.map((controlItem, ind) =>
                                         controlItem.componentType === "input" ? (
                                             <InputComponent
+                                                key={controlItem.ind}
                                                 type={controlItem.type}
                                                 placeholder={controlItem.placeholder}
                                                 label={controlItem.label}
@@ -105,7 +108,7 @@ export default function Register() {
                                         ) : controlItem.componentType === "select" ? (
                                             <SelectComponent
                                                 options={controlItem.options}
-                                                label={controlItem.label}
+                                                  label={controlItem.label}
                                                 onChange={(event) => {
                                                     setFormData({
                                                         ...formData,
@@ -118,8 +121,8 @@ export default function Register() {
                                     )}
                                     <button
                                         className=" disabled:opacity-50 inline-flex w-full items-center justify-center bg-black px-6 py-4 text-lg 
-               text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
-               "
+                                        text-white transition-all duration-200 ease-in-out focus:shadow font-medium uppercase tracking-wide
+                                        "
                                         disabled={!isFormValid()}
                                         onClick={handleRegisterOnSubmit}
                                     >
@@ -139,7 +142,7 @@ export default function Register() {
                     </div>
                 </div>
             </div>
-            <Notification />
+            <Notification/>
         </div>
     )
 }
