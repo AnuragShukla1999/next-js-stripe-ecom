@@ -40,7 +40,7 @@ export default function GlobalState({ children }) {
     const [currentUpdateProduct, setCurrentUpdateProduct] = useState(null);
     const [showCartModal, setShowCartModal] = useState(false);
     const [cartItems, setCartItems] = useState([]);
-    const [ addresses, setAddressess] = useState([]);
+    const [ addresses, setAddresses] = useState([]);
     const [addressFormData, setAddressFormData] = useState({
         fullName: "",
         city: "",
@@ -122,7 +122,7 @@ export default function GlobalState({ children }) {
                 cartItems,
                 setCartItems,
                 addresses,
-                setAddressess,
+                setAddresses,
                 addressFormData,
                 setAddressFormData,
                 checkoutFormData,
