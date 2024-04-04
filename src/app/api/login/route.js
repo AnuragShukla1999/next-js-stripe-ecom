@@ -13,6 +13,8 @@ const schema = Joi.object({
 
 export const dynamic = "force-dynamic";
 
+const secretKey = process.env.jwt_secret;
+
 export async function POST(req) {
     await connectToDB();
 
@@ -50,15 +52,17 @@ export async function POST(req) {
 
 
         const token = jwt.sign(
-            {
+            { 
                 id: checkUser._id,
                 email: checkUser?.email,
                 role: checkUser?.role,
             },
 
-            "eyJhbGciOiJIUzUxMiJ9.eyJSb2xlIjoiQWRtaW4iLCJJc3N1ZXIiOiJJc3N1ZXIiLCJVc2VybmFtZSI6IkphdmFJblVzZSIsImV4cCI6MTcxMTk2MDQxMCwiaWF0IjoxNzExOTYwNDEwfQ.z38bpuvYoLYCUnofnR7gdXyrjC-IY0aBTm0uugbHKlXjsdNiqp6m93LirAYNb1_4pxt5iqxv6TwITg1hqMv3yg",
+            secretKey,
             { expiresIn: "1d" }
         );
+
+        console.log(token);
 
 
         const finalData = {

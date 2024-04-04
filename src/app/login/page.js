@@ -69,7 +69,7 @@ export default function Login() {
             setComponentLevelLoader({ loading: false, id: "" });
         } else {
             toast.error(res.message, {
-                position: toast.POSITION.TOP_RIGHT,
+                position: "top-right",
             });
 
             setIsAuthUser(false);
@@ -77,10 +77,9 @@ export default function Login() {
         }
     }
 
-    console.log(isAuthUser, user);
-
-
+    
     useEffect(() => {
+        console.log(isAuthUser, user);
         if (isAuthUser) router.push("/");
     }, [isAuthUser]);
 

@@ -114,7 +114,7 @@ export default function AdminAddNewProduct() {
     }
 
     setFormData({
-      ...formData,
+      ...formData, 
       sizes: cpySizes,
     });
   }

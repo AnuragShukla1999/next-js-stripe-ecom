@@ -43,7 +43,7 @@ export async function POST(req) {
                 return NextResponse.json({
                     success: false,
                     message: error.details[0].message,
-                });
+                });  
             }
 
             const newlyAddedAddress = await Address.create(data);
