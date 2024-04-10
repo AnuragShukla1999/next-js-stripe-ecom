@@ -20,7 +20,7 @@ export const dynamic = "force-dynamic";
 export async function POST(req) {
     await connectToDB();
 
-    const{ name, email, password, role } = await req.json();
+    const { name, email, password, role } = await req.json();
 
     // validate the schema
     const { error } = schema.validate({ name, email, password, role });
@@ -65,11 +65,11 @@ export async function POST(req) {
         }
 
     } catch (error) {
-        console.log("Error while new user registration. Please try again");
+        console.log("Error while new user registration. Please try again", error);
 
         return NextResponse.json({
             success: false,
-            message: "Something went wrog ! Please try again later",
+            message: "Something went wrong ! Please try again later",
         });
     }
 }

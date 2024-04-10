@@ -128,7 +128,7 @@ export default function AdminAddNewProduct() {
 
     console.log(res);
 
-    if (res.success) {
+    if (res) {
       setComponentLevelLoader({ loading: false, id: "" });
       toast.success(res.message, {
         position: "top-right",
@@ -140,7 +140,7 @@ export default function AdminAddNewProduct() {
         router.push("/admin-view/all-products");
       }, 1000);
     } else {
-      toast.error(res.message, {
+      toast.error("Hi", {
         position: "top-right",
       });
       setComponentLevelLoader({ loading: false, id: "" });

@@ -64,8 +64,11 @@ export default function Login() {
             setFormData(initialFormdata);
 
             Cookies.set("token", res?.finalData?.token);
+            console.log(res?.finalData?.token);
 
-            localStorage.setItem("user", JSON.stringify(res?.finalData?.user));
+            localStorage.setItem("user", JSON.stringify(res?.finalData?.token));
+
+            console.log(JSON.stringify(res?.finalData?.token))
             setComponentLevelLoader({ loading: false, id: "" });
         } else {
             toast.error(res.message, {
@@ -80,6 +83,7 @@ export default function Login() {
     
     useEffect(() => {
         console.log(isAuthUser, user);
+        
         if (isAuthUser) router.push("/");
     }, [isAuthUser]);
 

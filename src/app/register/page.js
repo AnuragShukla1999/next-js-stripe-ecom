@@ -8,7 +8,7 @@ import { GlobalContext } from "@/context";
 import { registerNewUser } from "@/services/register";
 import { registrationFormControls } from "@/utils";
 import { useRouter } from "next/navigation";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 
 
@@ -48,24 +48,36 @@ export default function Register() {
 
 
     async function handleRegisterOnSubmit() {
-
+        setPageLevelLoader(true);
         const data = await registerNewUser(formData);
 
         if (data.success) {
-            toast.success(data.message);
+            toast.success(data.message, {
+                position: "top-right"
+            });
 
             setIsRegistered(true);
 
+            setPageLevelLoader(false);
+
             setFormData(initialFormData);
         } else {
-            toast.error(data.message);
+            toast.error(data.message, {
+                position: "top-right"
+            });
 
+            setPageLevelLoader(false);
             setFormData(initialFormData);
         }
 
         console.log(data);
 
     }
+
+
+    useEffect(() => {
+        if (isAuthUser) router.push("/");
+    }, [isAuthUser]);
 
 
     return (
